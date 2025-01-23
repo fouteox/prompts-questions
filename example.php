@@ -2,7 +2,7 @@
 
 require 'vendor/autoload.php';
 
-use function Laravel\Prompts\{text, select, confirm, info, multiselect};
+use function Laravel\Prompts\{text, select, confirm, clear, info, multiselect};
 
 info("The Spin logo!");
 
@@ -57,6 +57,15 @@ $services = multiselect(
     default: ['read', 'create']
 );
 
+info("The terminal will use the clear() function in 5 seconds to demonstrate how it works");
+
+for($i = 5; $i > 0; $i--) {
+    sleep(1);
+    info($i);
+}
+
+clear();
+
 $package = select(
   label: "Choose your JavaScript package manager:",
   options: [
@@ -87,5 +96,4 @@ echo json_encode([
     'package' => $package,
     'database' => $database,
     'githubAction' => $githubAction,
-    'timestamp' => date('Y-m-d H:i:s')
 ]);

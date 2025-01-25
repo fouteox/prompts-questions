@@ -1,13 +1,20 @@
-FROM php:8.4-cli-alpine
-
-RUN apk add --no-cache composer
+FROM composer:latest AS builder
 
 WORKDIR /app
 
 COPY composer.json .
 
-RUN composer install --no-interaction --no-progress --optimize-autoloader
+RUN composer install \
+    --no-interaction \
+    --no-progress \
+    --optimize-autoloader \
+    --no-dev \
+    --prefer-dist
 
-COPY example.php .
+FROM php:8.4-cli-alpine
 
-ENTRYPOINT ["php", "example.php"]
+WORKDIR /app
+
+COPY --from=builder /app/vendor ./vendor
+
+ENTRYPOINT ["php"]

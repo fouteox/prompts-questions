@@ -269,11 +269,10 @@ class QuestionTree
 
     private function promptForTestingFramework(): void
     {
-        $this->answers['testing_framework'] = select(
+        $this->answers['testing_framework'] = strtolower(select(
           label: 'Which testing framework do you prefer?',
-          options: ['Pest', 'PHPUnit'],
-          default: 'Pest'
-      );
+          options: ['Pest', 'PHPUnit']
+      ));
     }
 
     private function promptForQueue(): void

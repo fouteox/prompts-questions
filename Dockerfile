@@ -17,6 +17,4 @@ WORKDIR /app
 
 COPY --from=builder /app/vendor ./vendor
 
-COPY questions.php /app
-
-ENTRYPOINT ["php", "/app/questions.php"]
+ENTRYPOINT ["php"]
